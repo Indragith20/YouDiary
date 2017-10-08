@@ -10,6 +10,12 @@
     border-color: black;
 }
 
+.activeTab{
+    background-color: orangered;
+    color:white;
+    border-color: black;
+}
+
 .jumbotron{
     padding:6rem 1rem;
 }
