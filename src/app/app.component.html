@@ -1,33 +1,47 @@
-<div class="container">
- <div class="container-box"> 
-  <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-2 box" >
-        Register
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">YouDiary</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Feautres</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline mt-2 mt-md-0">
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login/Register</button>
+      </form>
+    </div>
+  </nav>
+
+
+<app-login-component></app-login-component>
+
+<footer class="footer">
+    
+      <div class="row">
+        
+        <div class="col-md-2">
+            <span>Copyright © 2017 YouDiary</span>
+
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <span>Reach Us</span>
+            <a href="#"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+            <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+            <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+            <a href="#"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
+        </div>
       </div>
-      <div class="col-md-2 box">
-        Login
-      </div>
-      <div class="col-md-4"></div>
-  </div>
-  <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label for="email">Email address:</label>
-              <input type="email" class="form-control" id="email">
-            </div>
-            <div class="form-group">
-              <label for="username">UserName:</label>
-              <input type="text" class="form-control" id="username">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd">
-              </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-      </div>
-      <div class="col-md-4"></div>
-  </div>
-  </div>
-</div>
+    
+  </footer>
+ 
