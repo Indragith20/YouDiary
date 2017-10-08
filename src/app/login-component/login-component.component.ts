@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {trigger,state,style,animate,transition} from '@angular/animations';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   registerPageActive:boolean = true;
   loginPageActive:boolean=false;
 
-  constructor() { 
+  constructor(private router:Router) { 
     this.bsConfig = Object.assign({}, {containerClass: this.colorTheme});
   }
 
@@ -28,6 +29,10 @@ export class LoginComponent implements OnInit {
 public setLogin(){
     this.registerPageActive=false;
     this.loginPageActive=true;
+}
+
+login(){
+  this.router.navigate(['/home']);
 }
 
 }
