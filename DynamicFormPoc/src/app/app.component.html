@@ -1,64 +1,141 @@
-<div class="container">
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn btn-primary" (click)="designerView()">
+      Designer View
+    </button>
+  </div>
+  <div class="col-md-6">
+    <button class="btn btn-primary" (click)="templateView()">
+      View Templates
+    </button>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="getTemplateView==false">
   <div class="row">
     <div class="col-xs-12">
       <div class="margin-20">
-        <h4>Add customer</h4>
+        <h4>Designer View</h4>
       </div>
+      </div>
+      </div>
+      <div class="view1">
       <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
         <div class="form-group">
-          <label>Question</label>
-          <input type="text" class="form-control" formControlName="name">
-          <small *ngIf="!myForm.controls.name.valid" class="text-danger">
-              Name is required (minimum 5 characters).
+          <label>Form Name</label>
+          <input type="text" class="form-control" formControlName="formName">
+          <small *ngIf="!myForm.controls.formName.valid" class="text-danger">
+              FormName is required (minimum 5 characters).
             </small>
         </div>
         <div class="form-group">
-          <label class="center-block">QuestionType:
-            <select class="form-control" formControlName="type">
+        <div class="col-md-6">
+          <label>Region</label>
+          <input type="text" class="form-control" formControlName="region">
+          <small *ngIf="!myForm.controls.region.valid" class="text-danger">
+              Name is required (minimum 5 characters).
+            </small>
+            </div>
+            <div class="col-md-6">
+            <label class="center-block">IndexArea:
+            <select class="form-control" formControlName="indexArea">
+                <option value="Pre">Pre</option>
+                <option value="Post">Post</option>
+                <option value="Diag">Diag</option>
+            </select>
+          </label>
+          </div>
+        </div>
+         
+
+       
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.controls.region.valid || !myForm.controls.indexArea.valid"    (click)="next()">Next</button>
+        </div>
+
+        
+
+
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-primary" [disabled]="myForm.controls.questions.controls.length<=1" (click)="previousPage(userIndex)">Previous</button>
+            {{userIndex}}
+            <button type="submit" class="btn btn-primary" [disabled]="myForm.controls.questions.controls.length==userIndex" (click)="nextPage(userIndex)">Next</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+        
+        <div formArrayName="questions" *ngIf="askQuestions==true">
+        
+        <div *ngFor="let questions of myForm.controls.questions.controls;index as i" [formGroupName]="i" class="panel panel-default">
+        
+        <!-- <div *ngIf="i === myForm.controls.questions.controls.length -1"> -->
+        <div *ngIf="i === userIndex -1">
+        {{userIndex}}
+        <div class="panel-heading">
+              <span>Questions {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" (click)="removeAddress(i)">RemoveQuestion</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-md-6">
+              <label>Question</label>
+              <input type="text" class="form-control" formControlName="name">
+              
+            </div>
+            <div class="col-md-6">
+              <label>QuestionType</label>
+              <select class="form-control" formControlName="type">
                 <option value="dropdown">Dropdown</option>
                 <option value="checkbox">Checkbox</option>
                 <option value="textbox">Textbox</option>
             </select>
-          </label>
-          <small *ngIf="!myForm.controls.name.valid" class="text-danger">
-              Name is required (minimum 5 characters).
-            </small>
-        </div>
-        <div class="margin-20">
-          <button type="submit" class="btn btn-primary pull-right" (click)="nextStep(myForm)">Next</button>
-        </div>
-        <!--addresses-->
-        <div formArrayName="addresses">
-          <div *ngFor="let address of myForm.controls.addresses.controls; let i=index" class="panel panel-default">
-            <div class="panel-heading">
-              <span>Address {{i + 1}}</span>
-              <span class="glyphicon glyphicon-remove pull-right" (click)="removeAddress(i)">Remove</span>
-            </div>
-            <div class="panel-body" [formGroupName]="i">
-              <div class="form-group col-xs-6">
-                <label>street</label>
-                <input type="text" class="form-control" formControlName="street">
-                <small [hidden]="myForm.controls.addresses.controls[i].controls.street.valid" class="text-danger">
-                    Street is required
-                </small>
-              </div>
-              <div class="form-group col-xs-6">
-                <label>postcode</label>
-                <input type="text" class="form-control" formControlName="postcode">
-              </div>
             </div>
           </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!questions.controls.name.valid || !questions.controls.type.valid" (click)="validateQue(myForm,i)">Validate Question</button>
+          
+
+          <div formArrayName="options" *ngIf="askOptions==true">
+            <div *ngFor="let optionsQuestions of questions.controls.options.controls;let j = index" [formGroupName]="j" class="panel panel-default">
+              <div class="panel-heading">
+                <span>QuestionOptions {{j + 1}}</span>
+                <span class="glyphicon glyphicon-remove pull-right" (click)="removeAddress(j)">RemoveOption</span>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    <label>OptionLabel</label>
+                    <input type="text" class="form-control" formControlName="label">
+                    
+                  </div>
+                  <div class="col-md-4">
+                    <label>OptionName</label>
+                    <input type="text" class="form-control" formControlName="typeName">
+                </div>
+                <div class="col-md-4">
+                  <label>OptionValue</label>
+                    <input type="text" class="form-control" formControlName="typeValue">
+                </div>
+              </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right" (click)="addOption(i)">Add Option</button>
+          </div> 
+          </div>
+           
+            
+          </div>
+          
+           <button type="submit" *ngIf="submitOption==true" class="btn btn-primary pull-right" (click)="submitTemplate(myForm)">Submit Template</button>  
+            <button type="submit" *ngIf="submitOption==true" class="btn btn-primary pull-right" (click)="addQuestion()">Add Another Question</button>
         </div>
 
-        <div class="margin-20">
-          <a (click)="addAddress()" style="cursor: default">
-            Add another address +
-          </a>
-        </div>
-
-        <div class="margin-20">
-          <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
-        </div>
+        
         <div class="clearfix"></div>
 
         <div class="margin-20">
@@ -67,6 +144,18 @@
           <pre>form value: <br>{{myForm.value | json}}</pre>
         </div>
       </form>
+      </div>
+
+      <div class="view2">
+     
+     <form-preview [formPre]="myForm"></form-preview>   
     </div>
-  </div>
+  
+</div>
+
+
+
+
+<div class="container" *ngIf="getTemplateView==true">
+  <template-view></template-view>
 </div>

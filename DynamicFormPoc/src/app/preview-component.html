@@ -1,0 +1,20 @@
+<form [formGroup]="formPre">
+       <span>{{formPre.value.region}} -- {{formPre.value.indexArea}}</span>
+       <div *ngFor="let questions of formPre.value.questions">
+       Yeah almost forgot 
+         <div *ngIf="questions.type=='textbox'">
+           <label>{{questions.name}}</label> 
+           <input type="text" placeholder="{{questions.name}}" class="form-control">
+         </div>
+         <div *ngIf="questions.type=='dropdown'">
+           <label>{{questions.name}}</label>
+              <select class="form-control" formControlName="type">
+                <option *ngFor="let option of questions.options">{{option.label}}</option>
+            </select>
+         </div>
+       </div>
+         
+
+      
+       
+</form>

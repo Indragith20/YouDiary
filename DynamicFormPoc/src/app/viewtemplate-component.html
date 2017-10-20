@@ -1,0 +1,22 @@
+
+<div class="form-group">
+   <label>Form To be Shown</label>
+   <input type="text" class="form-control" [(ngModel)]="formFieldName" />
+   <button class="btn btn-primary" (click)="getTemplate()">Get Template</button>
+</div>
+
+<div class="container" *ngIf="formready==true">
+<form (ngSubmit)="onSubmit()" [formGroup]="finalForm">
+
+    <div *ngFor="let question of customizedForm.questions" class="form-row">
+      <df-question [question]="question" [form]="finalForm"></df-question>
+    </div>
+
+    <div class="form-row">
+      <button type="submit" [disabled]="!finalForm.valid">Save</button>
+    </div>
+
+    
+
+  </form>
+</div>
